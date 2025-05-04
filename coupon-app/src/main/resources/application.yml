@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: first-come-first-served
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/myapp?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
+    username: myuser
+    password: mypass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
