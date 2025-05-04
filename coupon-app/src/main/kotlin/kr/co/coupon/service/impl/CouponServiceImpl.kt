@@ -14,6 +14,7 @@ class CouponServiceImpl(
 ): CouponService, Log {
 
     companion object {
+        const val FIRST_COME_COUPON_LIMIT = 100
         const val FIRST_COME_COUPON_KEY = "first-come-coupon:count"
         const val FIRST_COME_COUPON_LOCK_KEY = "first-come-coupon:lock"
         private val FIRST_COME_COUPON_LOCK_TIME_OUT = Duration.ofMillis(1) // 1ms 이하로 설정 불가
@@ -74,7 +75,7 @@ class CouponServiceImpl(
         val isNew = redisTemplate.opsForValue().setIfAbsent(FIRST_COME_COUPON_KEY, "1")
         if (isNew == false) {
             val currentCount = getCouponCountFromRedis()
-            if (currentCount < 100) {
+            if (currentCount < FIRST_COME_COUPON_LIMIT) {
                 redisTemplate.opsForValue().increment(FIRST_COME_COUPON_KEY)
             } else {
                 throw IllegalStateException("쿠폰이 모두 소진되었습니다.")
