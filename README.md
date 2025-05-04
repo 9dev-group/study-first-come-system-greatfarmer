@@ -38,33 +38,26 @@
 ## 시퀀스 다이어그램
 ```mermaid
 sequenceDiagram
-    participant User1
-    participant User2
-    participant User3
-    participant Redis
+  participant 사용자
+  participant 웹서버
+  participant 쿠폰시스템
+  participant Redis
+  participant DB
 
-    User1->>Redis: INCR coupon-count
-    alt coupon-count ≤ 100
-        Redis-->>User1: create coupon
-    else
-        Redis-->>User1: fail
-    end
-
-    User2->>Redis: INCR coupon-count
-    alt coupon-count ≤ 100
-        Redis-->>User2: create coupon
-    else
-        Redis-->>User2: fail
-    end
-
-    User3->>Redis: INCR coupon-count
-    alt coupon-count ≤ 100
-        Redis-->>User3: create coupon
-    else
-        Redis-->>User3: fail
-    end
-
-    Note over Redis: ... 생략 ... 최대 100명까지 반복
+  사용자->>웹서버: 쿠폰 발급 요청
+  웹서버->>쿠폰시스템: 선착순 쿠폰 발급 요청
+  쿠폰시스템->>Redis: 쿠폰 발급 증가 (incr)
+  alt 쿠폰 있음
+    Redis-->>쿠폰시스템: 쿠폰 발급 성공
+    쿠폰시스템->>DB: 쿠폰 발급 내역 저장
+    DB-->>쿠폰시스템: 저장 성공
+    쿠폰시스템-->>웹서버: 쿠폰 발급 성공
+    웹서버-->>사용자: 쿠폰 발급 완료
+  else 쿠폰 없음
+    Redis-->>쿠폰시스템: 재고 부족
+    쿠폰시스템-->>웹서버: 쿠폰 발급 실패 응답
+    웹서버-->>사용자: 쿠폰 발급 실패 안내
+  end
 ```
 
 ## 동시성 이슈 해결
