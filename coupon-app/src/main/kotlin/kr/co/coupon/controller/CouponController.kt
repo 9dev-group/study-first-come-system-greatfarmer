@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*
 class CouponController(
     val couponService: CouponService
 ) {
+    @PostMapping("/issue")
+    fun issueCoupon() =
+        ResponseEntity.ok(couponService.issueCoupon())
 
     @GetMapping("/count")
     fun getCouponCount() =
