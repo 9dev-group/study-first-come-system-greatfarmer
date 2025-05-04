@@ -17,7 +17,7 @@ class CouponServiceImpl(
         const val FIRST_COME_COUPON_LIMIT = 100
         const val FIRST_COME_COUPON_KEY = "first-come-coupon:count"
         const val FIRST_COME_COUPON_LOCK_KEY = "first-come-coupon:lock"
-        private val FIRST_COME_COUPON_LOCK_TIME_OUT = Duration.ofMillis(1) // 1ms 이하로 설정 불가
+        private val FIRST_COME_COUPON_LOCK_TIME_OUT = Duration.ofMillis(100) // 1ms 이하로 설정 불가
     }
 
     override fun getCouponCount(): Int {
