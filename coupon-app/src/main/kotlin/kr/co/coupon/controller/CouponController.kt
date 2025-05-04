@@ -13,6 +13,10 @@ class CouponController(
     fun issueCoupon() =
         ResponseEntity.ok(couponService.issueCoupon())
 
+    @PostMapping("/issue/lock")
+    fun issueCouponWithLock() =
+        ResponseEntity.ok(couponService.issueCouponWithLock())
+
     @GetMapping("/count")
     fun getCouponCount() =
         ResponseEntity.ok(couponService.getCouponCount())

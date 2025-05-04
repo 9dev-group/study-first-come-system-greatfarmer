@@ -17,6 +17,14 @@ class FirstComeFirstServedApplicationTests {
 	@Autowired
 	private lateinit var mockMvc: MockMvc
 
+	companion object {
+		const val ISSUE_COUPON_WITHOUT_LOCK_ENDPOINT = "/v1/coupon/issue"
+		const val ISSUE_COUPON_WITH_LOCK_ENDPOINT =  "/v1/coupon/issue/lock"
+
+		const val IS_TIME_DELAY = true
+		const val DELAY_TIME = 3L // ms
+	}
+
 	@Test
 	fun `동시 쿠폰 발급 테스트`() {
 		val numberOfUsers = 200
@@ -26,12 +34,16 @@ class FirstComeFirstServedApplicationTests {
 		repeat(numberOfUsers) {
 			executor.submit {
 				try {
+					if (IS_TIME_DELAY) {
+						Thread.sleep(DELAY_TIME)
+					}
+
 					mockMvc.perform(
-						MockMvcRequestBuilders.post("/v1/coupon/issue")
+						MockMvcRequestBuilders.post(ISSUE_COUPON_WITH_LOCK_ENDPOINT)
 							.contentType(MediaType.APPLICATION_JSON)
-					).andExpect(MockMvcResultMatchers.status().isOk) // 또는 예상 응답 코드
+					).andExpect(MockMvcResultMatchers.status().isOk)
 				} catch (e: Exception) {
-					println("요청 중 예외 발생: ${e.message}")
+					println("발급순서: ${latch.count} / 요청 중 예외 발생: ${e.message}")
 				} finally {
 					latch.countDown()
 				}
