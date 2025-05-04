@@ -135,3 +135,4 @@ sequenceDiagram
 - https://techblog.gccompany.co.kr/apache-kafka%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-eda-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0-bf263c79efd0
 - https://medium.com/glovo-engineering/the-discounts-microservice-14f4d4e4d6c9
 - https://techblog.gccompany.co.kr/redis-kafka%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EC%84%A0%EC%B0%A9%EC%88%9C-%EC%BF%A0%ED%8F%B0-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EA%B8%B0-feat-%EB%84%A4%EA%B3%A0%EC%99%95-ec6682e39731
+- https://medium.com/sjk5766/redis%EA%B0%80-%EC%A0%9C%EA%B3%B5%ED%95%98%EB%8A%94-redlock%EC%9D%84-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90-2feb7278411e
