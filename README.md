@@ -128,6 +128,9 @@ sequenceDiagram
 - POST /v1/coupon/issue
 - GET /v1/coupon/count
 
+## 트러블슈팅
+- [TO DO] Redis Lock을 이용한 엔드포인트에서 Spring Test에서는 동시성 이슈가 발생하지 않았으나, k6 부하테스트에서 동시성 이슈가 발생 (100건이 발급되어야 하나, 101건 발급됨) -> 원인과 해결 방법 확인
+
 ## 참고
 - https://nooblette.tistory.com/entry/%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%94%94%EC%9E%90%EC%9D%B8-%EC%8B%A4%EC%8A%B5%EC%9C%BC%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EC%84%A0%EC%B0%A9%EC%88%9C-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%8B%9C%EC%8A%A4%ED%85%9C-13-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EC%99%80-Redis%EB%A1%9C-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0
 - https://mangkyu.tistory.com/311
