@@ -22,12 +22,20 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.25")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+	implementation("org.springframework.kafka:spring-kafka")
+	implementation("org.springframework.cloud:spring-cloud-starter-stream-kafka")
 
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("mysql:mysql-connector-java:8.0.33")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.1")
+	}
 }
 
 kotlin {

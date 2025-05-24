@@ -17,6 +17,10 @@ class CouponController(
     fun issueCouponWithLock() =
         ResponseEntity.ok(couponService.issueCouponWithLock())
 
+    @PostMapping("/issue/kafka")
+    fun issueCouponWithKafka() =
+        ResponseEntity.ok(couponService.issueCouponWithKafka())
+
     @GetMapping("/count")
     fun getCouponCount() =
         ResponseEntity.ok(couponService.getCouponCount())

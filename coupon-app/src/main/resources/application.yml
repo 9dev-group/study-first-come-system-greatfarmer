@@ -20,3 +20,15 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
+
+  cloud:
+    stream:
+      bindings:
+        coupon-out-0:
+          destination: first-come-system
+        coupon-in-0:
+          destination: first-come-system
+          group: coupon-group
+      kafka:
+        binder:
+          brokers: localhost:9092,localhost:9093,localhost:9094

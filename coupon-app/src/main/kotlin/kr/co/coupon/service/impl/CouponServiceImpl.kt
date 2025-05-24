@@ -2,6 +2,7 @@ package kr.co.coupon.service.impl
 
 import kr.co.coupon.service.CouponService
 import kr.co.coupon.util.Log
+import org.springframework.cloud.stream.function.StreamBridge
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.script.DefaultRedisScript
 import org.springframework.stereotype.Service
@@ -10,7 +11,8 @@ import java.util.*
 
 @Service
 class CouponServiceImpl(
-    private val redisTemplate: RedisTemplate<String, String>
+    private val redisTemplate: RedisTemplate<String, String>,
+    private val streamBridge: StreamBridge
 ): CouponService, Log {
 
     companion object {
@@ -18,6 +20,8 @@ class CouponServiceImpl(
         const val FIRST_COME_COUPON_KEY = "first-come-coupon:count"
         const val FIRST_COME_COUPON_LOCK_KEY = "first-come-coupon:lock"
         private val FIRST_COME_COUPON_LOCK_TIME_OUT = Duration.ofMillis(100) // 1ms 이하로 설정 불가
+
+        const val FIRST_COME_COUPON_BINDER = "coupon-out-0"
     }
 
     override fun getCouponCount(): Int {
@@ -85,5 +89,10 @@ class CouponServiceImpl(
 
     private fun getCouponCountFromRedis() : Int {
         return redisTemplate.opsForValue().get(FIRST_COME_COUPON_KEY)?.toInt() ?: 0
+    }
+
+    override fun issueCouponWithKafka(): String {
+        val result = streamBridge.send(FIRST_COME_COUPON_BINDER, UUID.randomUUID())
+        return if (result) "success" else "fail"
     }
 }
