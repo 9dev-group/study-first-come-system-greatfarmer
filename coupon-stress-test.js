@@ -1,9 +1,9 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
-// 초당 1000명의 user가 10초간 요청을 보내는 상황을 가정
+// 초당 100명의 user가 10초간 요청을 보내는 상황을 가정
 export const options = {
-  vus: 1000,
+  vus: 100,
   duration: '10s',
 };
 
@@ -20,7 +20,7 @@ export default function() {
   };
 
   // POST 요청
-  const response = http.post('http://localhost:8080/v1/coupon/issue/lock', payload, {headers});
+  const response = http.post('http://localhost:8080/v1/coupon/issue/kafka', payload, {headers});
 
   // 응답 검증
   check(response, {
